@@ -1,6 +1,6 @@
 # Context Lens
 
-> **100% Non-Invasive Plugin Suite for Google Antigravity** — Monitor official cloud model quotas (`Gemini Models` & `Claude & GPT`), live context occupancy, 52-week token heatmaps, and API reference spend from your macOS menu bar, Antigravity Sidecar pane, or `/context-lens` chat skill.
+> **100% Non-Invasive Observability & Quota Suite for Google Antigravity (`agy`)** — Native SwiftUI **macOS Menu Bar Quota Monitor** (5-hour & 7-day weekly limit reset countdowns + burn-rate runway, inspired by `CodexBar`), **Live 1M Context Window & Compaction Curve Analyzer**, **52-Week Token Usage Heatmap**, and **API Cost & Subscription ROI Estimator** (inspired by `ccusage`), built strictly on official Antigravity plugin specs and `agy` CLI hooks.
 
 [简体中文](./README.md) · [English](./README.en.md) · [Troubleshooting](./docs/TROUBLESHOOTING.md)
 
@@ -9,6 +9,54 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![macOS 13+](https://img.shields.io/badge/macOS-13%2B-informational.svg)](#requirements)
 [![Node >= 22.5](https://img.shields.io/badge/Node.js-%E2%89%A522.5-brightgreen.svg)](#requirements)
+
+---
+
+## Screenshots
+
+<table>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <a href="./docs/screenshots/menubar-quota.jpg"><img src="./docs/screenshots/menubar-quota.jpg" alt="macOS Menu Bar Quota Monitor" /></a>
+      <br />
+      <strong>macOS Menu Bar Monitor (<code>ContextLensBar.app</code>)</strong><br />
+      <sub>Official cloud-synced 5h &amp; 7d limits for <code>Gemini Models</code> and <code>Claude &amp; GPT</code>, exact refresh countdowns, 7d pacing runway, and monthly ROI</sub>
+    </td>
+    <td width="50%" align="center" valign="top">
+      <a href="./docs/screenshots/dashboard-session.jpg"><img src="./docs/screenshots/dashboard-session.jpg" alt="Live Session Context Breakdown & Compaction Curve" /></a>
+      <br />
+      <strong>Live Session Context Inspector</strong><br />
+      <sub>Server-verified 1M context occupancy, cache hit rate, step error diagnostics, 6-category context split, and auto-compaction sawtooth timeline</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <a href="./docs/screenshots/dashboard-heatmap.jpg"><img src="./docs/screenshots/dashboard-heatmap.jpg" alt="52-Week Token Activity Heatmap" /></a>
+      <br />
+      <strong>52-Week Multi-Surface Heatmap</strong><br />
+      <sub>Unifies Desktop App, IDE, and CLI sessions with 5 color themes, streak stats, 14-day bars, and cumulative monthly curves</sub>
+    </td>
+    <td width="50%" align="center" valign="top">
+      <a href="./docs/screenshots/dashboard-billing.jpg"><img src="./docs/screenshots/dashboard-billing.jpg" alt="API Cost Breakdown & Subscription ROI" /></a>
+      <br />
+      <strong>API Reference Cost &amp; Plan ROI</strong><br />
+      <sub>Converts token usage to USD / CNY API list-price equivalents, measures AI Ultra / Pro payback multiplier, and ranks top-cost sessions</sub>
+    </td>
+  </tr>
+</table>
+
+---
+
+## Why Context Lens?
+
+| Capability | **Context Lens** | CLI-Only Log Trackers (e.g. `ccusage`) | Unofficial / Invasive Quota Scrapers |
+| :--- | :---: | :---: | :---: |
+| **Live Cloud `5h + 7d` Quotas & Reset Timers** | ✅ Official `agy` CLI sync | ❌ Local spend logs only | ⚠️ Often scrapes private ports or CSRF tokens |
+| **Weekly Burn Rate & Runway Prediction** | ✅ Daily burn % vs. days until refresh | ❌ | ⚠️ Usually shows raw % without runway pacing |
+| **Per-Session 6-Category Context & Compaction** | ✅ Server-verified tokens + compaction graph | ❌ Cross-session totals only | ❌ No in-session context anatomy |
+| **52-Week Heatmap + API Cost & Plan ROI** | ✅ Multi-surface + 5 themes + ROI multiplier | ✅ Historical bills & heatmaps | ❌ No historical spend analytics |
+| **Menu Bar App + Official Sidecar + Chat Skill** | ✅ Native SwiftUI + Sidecar + `/context-lens` | ❌ Terminal / static web only | ⚠️ Single surface only |
+| **100% Official & Non-Invasive Compliance** | ✅ Zero `app.asar` patching, zero credential persistence | ✅ Read-only logs | ❌ Brittle across client updates or key rotations |
 
 ---
 

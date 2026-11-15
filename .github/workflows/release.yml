@@ -58,6 +58,7 @@ jobs:
             --exclude='.github' \
             --exclude='dist' \
             --exclude='release-assets' \
+            --exclude='docs/screenshots' \
             .
           (cd ./release-assets && shasum -a 256 *.zip *.tar.gz > SHA256SUMS.txt)
           cat ./release-assets/SHA256SUMS.txt

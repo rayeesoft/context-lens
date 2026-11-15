@@ -1,6 +1,6 @@
 # Context Lens
 
-> **100% 非侵入式 Google Antigravity 插件套件** — 在原生 macOS 菜单栏、官方 Sidecar 侧边栏与 `/context-lens` 对话技能中，实时查看官方云端剩余限额、当前会话上下文拆解、52 周 Token 热力图与 API 等值参考账单。
+> **100% 非侵入式 Google Antigravity (`agy`) 全能观测套件** — 集 **macOS 原生菜单栏配额监控 (Menu Bar Quota Monitor)**、**5h / 7d 周限额与重置倒计时 (5-Hour & Weekly Limit Reset Countdown)**、**1M 上下文窗口拆解与 Compaction 压缩曲线 (Context Window Breakdown)**、**52 周 Token 活跃热力图 (Token Usage Heatmap)** 与 **API 等值账单及 AI Ultra 订阅回本倍率 (Subscription ROI)** 于一体；融合 `CodexBar` 级的桌面菜单栏体验与 `ccusage` 级的本地账单热力图，严格基于 Antigravity 官方插件与 `agy` CLI 规范构建。
 
 [简体中文](./README.md) · [English](./README.en.md) · [故障排查](./docs/TROUBLESHOOTING.md)
 
@@ -9,6 +9,54 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![macOS 13+](https://img.shields.io/badge/macOS-13%2B-informational.svg)](#环境要求)
 [![Node >= 22.5](https://img.shields.io/badge/Node.js-%E2%89%A522.5-brightgreen.svg)](#环境要求)
+
+---
+
+## 界面预览 (Screenshots)
+
+<table>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <a href="./docs/screenshots/menubar-quota.jpg"><img src="./docs/screenshots/menubar-quota.jpg" alt="macOS 菜单栏配额监控" /></a>
+      <br />
+      <strong>macOS 菜单栏实时配额 (<code>ContextLensBar.app</code>)</strong><br />
+      <sub><code>Gemini Models</code> 与 <code>Claude &amp; GPT</code> 官方同步 5h / 7d 余量、刷新倒计时、周节奏评估与月度订阅回本倍率</sub>
+    </td>
+    <td width="50%" align="center" valign="top">
+      <a href="./docs/screenshots/dashboard-session.jpg"><img src="./docs/screenshots/dashboard-session.jpg" alt="当前会话上下文拆解" /></a>
+      <br />
+      <strong>当前会话上下文透视 (Session Inspector)</strong><br />
+      <sub>1M 上下文占用、缓存命中率、异常步骤诊断、6 类构成拆解与自动压缩（Compaction）演进曲线</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <a href="./docs/screenshots/dashboard-heatmap.jpg"><img src="./docs/screenshots/dashboard-heatmap.jpg" alt="52周 Token 活跃热力图" /></a>
+      <br />
+      <strong>52 周全终端 Token 热力图 (Activity Heatmap)</strong><br />
+      <sub>聚合 App / IDE / CLI 历史消耗、连续活跃天数、5 套配色主题、近 14 天趋势与月度累计曲线</sub>
+    </td>
+    <td width="50%" align="center" valign="top">
+      <a href="./docs/screenshots/dashboard-billing.jpg"><img src="./docs/screenshots/dashboard-billing.jpg" alt="API 等值账单与订阅回本倍率" /></a>
+      <br />
+      <strong>API 等值账单与订阅 ROI (Cost &amp; ROI)</strong><br />
+      <sub>按公开模型单价估算 USD / CNY 账单，对比 AI Ultra / AI Pro 回本倍率并列出高消耗会话排行</sub>
+    </td>
+  </tr>
+</table>
+
+---
+
+## 与同类工具对比 (Why Context Lens?)
+
+| 核心维度 | **Context Lens** | 纯 CLI 账单统计类（如 `ccusage`） | 常规非官方配额插件 / 补丁工具 |
+| :--- | :---: | :---: | :---: |
+| **实时云端 `5h + 7d` 限额 & 刷新倒计时** | ✅ 官方 `agy` CLI 同步 | ❌ 仅本地估算无官方限额 | ⚠️ 常需逆向私有端口或 CSRF |
+| **周消耗速率与可撑天数预测 (Runway)** | ✅ 日均耗比 vs 距刷新天数 | ❌ | ⚠️ 多数仅展示当前剩余百分比 |
+| **单会话 `1M` 上下文 6 维拆解 & 压缩曲线** | ✅ 服务端验证 + 自动压缩锯齿图 | ❌ 仅按天/按项目汇总 | ❌ 无会话内部上下文可视化 |
+| **52 周热力图 + API 等值账单 & 订阅 ROI** | ✅ 多端汇总 + 5 套配色 + ROI 倍率 | ✅ 历史账单/热力图 | ❌ 缺少历史消费复盘看板 |
+| **原生 macOS 菜单栏 + Sidecar + 聊天技能** | ✅ SwiftUI 菜单栏 + Sidecar + `/context-lens` | ❌ 仅终端 / 网页 | ⚠️ 通常仅菜单栏或仅 IDE 侧栏 |
+| **100% 官方合规（零补丁、零私有探测）** | ✅ 零修改客户端、升级不失效、不落盘凭证 | ✅ 仅读本地日志 | ❌ 改 `app.asar` 或探测私有 RPC 有合规与失效风险 |
 
 ---
 
