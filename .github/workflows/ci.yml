@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-test:
+    name: Validate & Test (${{ matrix.os }}, Node ${{ matrix.node }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        node: [22, 24]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Check bash scripts syntax
+        run: |
+          bash -n install.sh
+          bash -n menubar/build.sh
+
+      - name: Validate manifests & privacy hygiene
+        run: npm run validate
+
+      - name: Run unit tests
+        run: npm test
+
+  build-macos-app:
+    name: Build Universal macOS Menu Bar App
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build Universal ContextLensBar.app (arm64 + x86_64)
+        run: bash menubar/build.sh --universal --out ./dist
+
+      - name: Verify architectures & code signature
+        run: |
+          ARCHS="$(lipo -archs ./dist/ContextLensBar.app/Contents/MacOS/ContextLensBar)"
+          echo "Built architectures: ${ARCHS}"
+          [[ "${ARCHS}" == *"arm64"* && "${ARCHS}" == *"x86_64"* ]]
+          codesign --verify --deep --strict ./dist/ContextLensBar.app
+
+      - name: Smoke-test bundled quota CLI script
+        run: |
+          TMP_ROOT="$(mktemp -d)"
+          mkdir -p "${TMP_ROOT}/gemini/antigravity/brain" "${TMP_ROOT}/data"
+          node ./dist/ContextLensBar.app/Contents/Resources/scripts/quota.mjs \
+            --gemini-root "${TMP_ROOT}/gemini" \
+            --plugin-data-dir "${TMP_ROOT}/data" \
+            --json >/dev/null
+          rm -rf "${TMP_ROOT}"

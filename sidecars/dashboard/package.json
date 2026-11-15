@@ -1,0 +1,6 @@
+{
+  "name": "context-lens-dashboard",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Non-invasive Antigravity Context & Token Usage sidecar UI"
+}

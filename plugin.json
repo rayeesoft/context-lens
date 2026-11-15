@@ -1,0 +1,23 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "context-lens",
+  "displayName": "Context Lens",
+  "version": "1.3.1",
+  "description": "Non-invasive Context, Official Quota & Token Usage suite for Google Antigravity: native macOS menu bar quota monitor, live session context breakdown, 52-week heatmap, and API cost estimator.",
+  "author": {
+    "name": "rayeesoft",
+    "url": "https://github.com/rayeesoft"
+  },
+  "homepage": "https://github.com/rayeesoft/context-lens",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rayeesoft/context-lens.git"
+  },
+  "license": "MIT",
+  "logo": "assets/logo.svg",
+  "suggestedPrompts": [
+    "用 /context-lens 分析当前会话的上下文占用与缓存命中率",
+    "汇总我最近的 Token 消耗、模型分布与 API 等值参考账单",
+    "打开 Context Lens 侧边栏用量看板"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "context-lens-session-recorder": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "node ./scripts/session-start-hook.mjs",
+        "timeout": 5
+      }
+    ]
+  }
+}

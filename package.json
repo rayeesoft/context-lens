@@ -1,0 +1,24 @@
+{
+  "name": "context-lens",
+  "version": "1.3.1",
+  "private": true,
+  "type": "module",
+  "description": "Non-invasive Context, Official Quota & Token Usage suite for Google Antigravity",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rayeesoft/context-lens.git"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "test": "node --test scripts/analyzer.test.mjs scripts/quota.test.mjs",
+    "validate": "node scripts/validate-repo.mjs",
+    "build:menubar": "bash menubar/build.sh",
+    "build:menubar:universal": "bash menubar/build.sh --universal",
+    "dashboard": "node sidecars/dashboard/main.mjs --standalone --port 4799",
+    "quota": "node scripts/quota.mjs",
+    "quota:sync": "node scripts/quota.mjs --sync-cli"
+  }
+}

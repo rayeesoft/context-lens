@@ -1,0 +1,76 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build & Publish macOS Release
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Determine release tag
+        id: meta
+        run: |
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            TAG="${GITHUB_REF_NAME}"
+          else
+            VER="$(node -e 'console.log(JSON.parse(require("fs").readFileSync("plugin.json","utf8")).version)')"
+            TAG="v${VER}"
+          fi
+          echo "tag=${TAG}" >> "${GITHUB_OUTPUT}"
+
+      - name: Validate version match & repository hygiene
+        env:
+          EXPECTED_TAG: ${{ steps.meta.outputs.tag }}
+        run: npm run validate
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Build Universal ContextLensBar.app
+        run: |
+          bash menubar/build.sh --universal --out ./dist
+          lipo -archs ./dist/ContextLensBar.app/Contents/MacOS/ContextLensBar
+          codesign --verify --deep --strict ./dist/ContextLensBar.app
+
+      - name: Package release assets & checksums
+        env:
+          TAG: ${{ steps.meta.outputs.tag }}
+        run: |
+          mkdir -p ./release-assets
+          ditto -c -k --keepParent ./dist/ContextLensBar.app "./release-assets/ContextLensBar-${TAG}-macos-universal.zip"
+          tar -czf "./release-assets/context-lens-plugin-${TAG}.tar.gz" \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='dist' \
+            --exclude='release-assets' \
+            .
+          (cd ./release-assets && shasum -a 256 *.zip *.tar.gz > SHA256SUMS.txt)
+          cat ./release-assets/SHA256SUMS.txt
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.meta.outputs.tag }}
+        run: |
+          if gh release view "${TAG}" >/dev/null 2>&1; then
+            gh release upload "${TAG}" ./release-assets/* --clobber
+          else
+            gh release create "${TAG}" ./release-assets/* \
+              --title "Context Lens ${TAG}" \
+              --generate-notes
+          fi

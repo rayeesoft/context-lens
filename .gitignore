@@ -1,0 +1,27 @@
+# macOS / Editor
+.DS_Store
+.AppleDouble
+.LSOverride
+*.swp
+*.swo
+*~
+
+# Node / Build / Release artifacts
+node_modules/
+dist/
+build/
+release-assets/
+*.app/
+*.zip
+*.tar.gz
+SHA256SUMS.txt
+*.log
+.env
+.env.*
+
+# Runtime caches & user configs (must never be committed)
+official-quota-cache.json
+quota-config.json
+quota-scan-cache.json
+session-models.json
+*.tmp.*
